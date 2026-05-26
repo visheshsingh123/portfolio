@@ -29,57 +29,76 @@
   /* ===================== 4TH WALL LOADER ===================== */
   #loader {
     position: fixed; inset: 0; z-index: 99999;
-    background: #252422;
-    display: flex; align-items: flex-start; justify-content: flex-start;
-    overflow: hidden;
+    background: rgba(20, 19, 17, 0.92);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
     font-family: 'Space Mono', monospace;
     transition: opacity 0.7s ease, visibility 0.7s ease;
   }
   #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
+  /* the card */
+  .ldr-card {
+    position: relative;
+    width: min(520px, 90vw);
+    height: min(360px, 70vh);
+    background: #1e1c1a;
+    border-radius: 14px;
+    border: 1px solid #4a4642;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(235,94,40,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: cardPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  }
+  @keyframes cardPop {
+    from { opacity: 0; transform: scale(0.88) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
   /* fake browser chrome at top */
   .ldr-chrome {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 42px;
+    height: 38px; flex-shrink: 0;
     background: #2e2b28;
     border-bottom: 1px solid #4a4642;
+    border-radius: 14px 14px 0 0;
     display: flex; align-items: center;
     padding: 0 1rem; gap: 0.6rem;
     z-index: 2;
   }
   .ldr-chrome-dot {
-    width: 12px; height: 12px; border-radius: 50%;
+    width: 11px; height: 11px; border-radius: 50%;
   }
   .ldr-chrome-dot:nth-child(1) { background: #ff5f57; }
   .ldr-chrome-dot:nth-child(2) { background: #febc2e; }
   .ldr-chrome-dot:nth-child(3) { background: #28c840; }
   .ldr-url {
-    margin-left: 0.75rem;
+    margin-left: 0.6rem;
     background: #403d39;
     border: 1px solid #4a4642;
     border-radius: 4px;
-    padding: 0.2rem 1rem;
-    font-size: 0.68rem;
+    padding: 0.18rem 0.75rem;
+    font-size: 0.63rem;
     color: #6b6560;
     letter-spacing: 0.04em;
-    flex: 1; max-width: 340px;
+    flex: 1; max-width: 260px;
   }
   .ldr-url span { color: #eb5e28; }
 
   /* code editor area */
   .ldr-editor {
-    position: absolute;
-    inset: 42px 0 0 0;
+    flex: 1;
     display: flex;
     overflow: hidden;
+    min-height: 0;
   }
 
   /* line numbers gutter */
   .ldr-gutter {
-    width: 48px; flex-shrink: 0;
-    background: #2e2b28;
-    border-right: 1px solid #4a4642;
-    padding-top: 1rem;
+    width: 42px; flex-shrink: 0;
+    background: #2a2725;
+    border-right: 1px solid #3a3632;
+    padding-top: 0.75rem;
     display: flex; flex-direction: column;
     align-items: flex-end;
     padding-right: 0.5rem;
@@ -87,40 +106,40 @@
     overflow: hidden;
   }
   .ldr-ln {
-    font-size: 0.65rem;
-    line-height: 1.7rem;
+    font-size: 0.6rem;
+    line-height: 1.65rem;
     color: #6b6560;
     user-select: none;
-    min-height: 1.7rem;
+    min-height: 1.65rem;
   }
   .ldr-ln.active { color: #eb5e28; }
 
   /* the code content area */
   .ldr-code {
     flex: 1;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.1rem;
     overflow: hidden;
     position: relative;
   }
   .ldr-code-line {
-    font-size: 0.78rem;
-    line-height: 1.7rem;
+    font-size: 0.72rem;
+    line-height: 1.65rem;
     white-space: pre;
-    min-height: 1.7rem;
+    min-height: 1.65rem;
     position: relative;
   }
   /* syntax colours */
-  .s-tag   { color: #eb5e28; }          /* purple – html tags */
-  .s-attr  { color: #ccc5b9; }          /* amber – attributes */
-  .s-str   { color: #fffcf2; }          /* strings – cream */
-  .s-cmt   { color: #6b6560; font-style: italic; }  /* comment */
-  .s-txt   { color: #ccc5b9; }          /* plain text */
-  .s-dim   { color: #6b6560; }          /* ghost */
+  .s-tag   { color: #eb5e28; }
+  .s-attr  { color: #ccc5b9; }
+  .s-str   { color: #fffcf2; }
+  .s-cmt   { color: #6b6560; font-style: italic; }
+  .s-txt   { color: #ccc5b9; }
+  .s-dim   { color: #6b6560; }
 
   /* blinking cursor at end of typing line */
   .ldr-cursor {
     display: inline-block;
-    width: 2px; height: 0.85em;
+    width: 2px; height: 0.82em;
     background: #eb5e28;
     vertical-align: middle;
     margin-left: 1px;
@@ -135,6 +154,7 @@
     opacity: 0;
     pointer-events: none;
     mix-blend-mode: screen;
+    border-radius: 14px;
   }
   #loader.compiling .ldr-compile {
     animation: compileFlash 0.55s ease forwards;
@@ -150,21 +170,69 @@
 
   /* bottom status bar */
   .ldr-status {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 26px;
+    height: 24px; flex-shrink: 0;
     background: #eb5e28;
+    border-radius: 0 0 14px 14px;
     display: flex; align-items: center;
     padding: 0 1rem; gap: 1.5rem;
     z-index: 2;
   }
   .ldr-status span {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     color: #fffcf2;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 700;
   }
   .ldr-status-right { margin-left: auto; display: flex; gap: 1.5rem; }
+
+  /* progress bar below card */
+  .ldr-progress-wrap {
+    width: min(520px, 90vw);
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ldr-progress-track {
+    width: 100%;
+    height: 3px;
+    background: rgba(74,70,66,0.5);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .ldr-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #eb5e28, #f5a07a, #eb5e28);
+    background-size: 200% 100%;
+    border-radius: 99px;
+    transition: width 0.25s ease;
+    animation: shimmer 1.4s linear infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+  .ldr-progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ldr-progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    color: #6b6560;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .ldr-progress-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    color: #eb5e28;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
   /* =========================================================== */
 
   html { scroll-behavior: smooth; }
@@ -246,11 +314,17 @@
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 4rem;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 4rem;
     background: rgba(37,36,34,0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    width: 100%;
+    max-width: 1200px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 0;
   }
   .nav-logo {
     font-family: var(--mono);
@@ -325,14 +399,13 @@
 
   .hero-content { text-align: left; }
 
-  /* ── HERO PHOTO SLOT ── */
+  /* HERO PHOTO SLOT */
   .hero-photo-slot {
     position: relative;
     width: 340px;
     height: 420px;
     flex-shrink: 0;
   }
-  /* decorative corner bracket — top-left */
   .hero-photo-slot::before {
     content: '';
     position: absolute;
@@ -343,7 +416,6 @@
     z-index: 2;
     pointer-events: none;
   }
-  /* decorative corner bracket — bottom-right */
   .hero-photo-slot::after {
     content: '';
     position: absolute;
@@ -361,7 +433,6 @@
     border: 1px solid var(--border);
     background: var(--bg2);
   }
-  /* offset shadow block */
   .hero-photo-frame::before {
     content: '';
     position: absolute;
@@ -379,95 +450,57 @@
     filter: grayscale(20%);
     transition: filter 0.4s, transform 0.4s;
   }
-  .hero-photo-frame:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.03);
-  }
-  /* placeholder shown when no real photo yet */
+  .hero-photo-frame:hover img { filter: grayscale(0%); transform: scale(1.03); }
   .hero-photo-placeholder {
     width: 100%; height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    background: var(--bg2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem; background: var(--bg2);
   }
-  .hero-photo-placeholder svg {
-    width: 64px; height: 64px;
-    stroke: var(--border);
-  }
+  .hero-photo-placeholder svg { width: 64px; height: 64px; stroke: var(--border); }
   .hero-photo-placeholder span {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-family: var(--mono); font-size: 0.65rem; color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase;
   }
-  /* accent label strip at bottom of frame */
   .hero-photo-label {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
+    position: absolute; bottom: 0; left: 0; right: 0;
     padding: 0.5rem 0.9rem;
-    background: rgba(37,36,34,0.82);
-    backdrop-filter: blur(8px);
+    background: rgba(37,36,34,0.82); backdrop-filter: blur(8px);
     border-top: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
   }
   .hero-photo-label span {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-family: var(--mono); font-size: 0.6rem; color: var(--muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
   }
   .hero-photo-label .lbl-accent { color: var(--accent); }
-  /* ────────────────────── */
 
   .hero-tag {
     display: inline-block;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-family: var(--mono); font-size: 0.72rem; color: var(--accent);
+    letter-spacing: 0.2em; text-transform: uppercase;
     border: 1px solid rgba(235,94,40,0.3);
-    padding: 0.35rem 0.9rem;
-    border-radius: 2px;
+    padding: 0.35rem 0.9rem; border-radius: 2px;
     margin-bottom: 1.8rem;
     opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
   }
-
   .hero-name {
-    font-family: var(--sans);
-    font-weight: 800;
+    font-family: var(--sans); font-weight: 800;
     font-size: clamp(3.2rem, 8vw, 6.5rem);
-    line-height: 0.95;
-    color: var(--white);
-    letter-spacing: -0.03em;
-    margin-bottom: 1.2rem;
+    line-height: 0.95; color: var(--white);
+    letter-spacing: -0.03em; margin-bottom: 1.2rem;
     opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
   }
   .hero-name .accent-line {
     display: block;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-
   .hero-sub {
-    font-family: var(--mono);
-    font-size: 0.88rem;
-    color: var(--muted);
-    max-width: 460px;
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
+    font-family: var(--mono); font-size: 0.88rem; color: var(--muted);
+    max-width: 460px; line-height: 1.75; margin-bottom: 2.5rem;
     opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
   }
   .hero-sub .typed-cursor { color: var(--accent); animation: blink 1s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
   .hero-cta {
     display: flex; gap: 1rem; flex-wrap: wrap;
     opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
@@ -601,6 +634,11 @@
 
   /* SECTIONS COMMON */
   section { padding: 7rem 4rem; }
+  section > *:not(.section-bg):not(canvas):not(.parallax-bg) {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .section-label {
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -633,6 +671,7 @@
     gap: 6rem;
     align-items: center;
     max-width: 1100px;
+    margin: 0 auto;
   }
   .about-text p {
     font-size: 1rem;
@@ -689,6 +728,7 @@
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     max-width: 1100px;
+    margin: 0 auto;
   }
   .skill-card {
     background: var(--bg2);
@@ -767,6 +807,7 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.5rem;
     max-width: 1100px;
+    margin: 0 auto;
   }
   .project-card {
     background: var(--bg3);
@@ -939,16 +980,46 @@
   #contact { background: var(--bg); }
   .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.1fr;
     gap: 4rem;
     max-width: 1100px;
-    align-items: start;
+    align-items: stretch;
+    margin: 0 auto;
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
   }
   .contact-info p {
-    font-size: 0.95rem;
-    line-height: 1.85;
+    font-size: 0.9rem;
+    line-height: 1.8;
     color: var(--muted);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+  }
+  /* the message group stretches to fill leftover space */
+  .contact-form .form-group-grow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .contact-form .form-group-grow .form-textarea {
+    flex: 1;
+    min-height: 160px;
+    height: auto;
+    resize: none;
+  }
+  /* button fills full width so the column looks intentional */
+  .contact-form .form-btn {
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
   }
 
   /* availability badge */
@@ -1017,6 +1088,8 @@
 
   .contact-socials {
     display: flex; flex-direction: column; gap: 0.6rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
   }
   .social-link {
     display: flex; align-items: center; gap: 0.9rem;
@@ -1042,7 +1115,6 @@
   .social-link:hover::before { transform: translateX(0); }
   .social-icon { width: 15px; height: 15px; flex-shrink: 0; }
 
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
   .form-label {
     font-family: var(--mono);
@@ -1081,7 +1153,9 @@
     position: relative;
     overflow: hidden;
     transition: color 0.3s ease;
-    align-self: flex-start;
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
   }
   .form-btn::before {
     content: '';
@@ -1137,17 +1211,207 @@
   /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
-    padding: 2rem 4rem;
-    display: flex; align-items: center; justify-content: space-between;
     background: var(--bg2);
   }
-  footer p, footer span {
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  /* top row */
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding: 3.5rem 0 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* brand column */
+  .footer-brand {}
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .footer-logo span { color: var(--accent2); }
+  .footer-tagline {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    max-width: 240px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* social icons row */
+  .footer-socials {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+  .footer-social-link {
+    width: 34px; height: 34px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+    flex-shrink: 0;
+  }
+  .footer-social-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(235,94,40,0.06);
+    transform: translateY(-2px);
+  }
+  .footer-social-link svg {
+    width: 15px; height: 15px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+  }
+  .footer-social-link.fill-icon svg { fill: currentColor; stroke: none; }
+
+  /* nav columns */
+  .footer-col-title {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .footer-col-title::before {
+    content: '';
+    width: 18px; height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .footer-nav-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.55rem;
+  }
+  .footer-nav-list a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s, padding-left 0.2s;
+    display: inline-block;
+  }
+  .footer-nav-list a:hover { color: var(--accent); padding-left: 4px; }
+
+  /* status badge */
+  .footer-status-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(40,200,64,0.08);
+    border: 1px solid rgba(40,200,64,0.2);
+    border-radius: 4px;
+    padding: 0.35rem 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .footer-status-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #28c840;
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+  @keyframes statusPulse {
+    0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(40,200,64,0.4); }
+    50%      { opacity: 0.8; box-shadow: 0 0 0 4px rgba(40,200,64,0); }
+  }
+  .footer-status-text {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: #28c840;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* bottom bar */
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 0;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .footer-copy, .footer-made {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.07em;
+  }
+  .footer-copy .accent, .footer-made .accent { color: var(--accent); }
+  .footer-made { display: flex; align-items: center; gap: 0.35rem; }
+  .footer-made svg { width: 11px; height: 11px; fill: var(--accent); flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2.5rem 0 2rem; }
+    .footer-inner { padding: 0 2rem; }
+    footer { flex-direction: column; }
+  }
+  @media (max-width: 500px) {
+    .footer-top { grid-template-columns: 1fr; }
+  }
+
+  /* ===== EDU / CERT TOGGLE ===== */
+  .edu-cert-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .edu-cert-toggle-label {
     font-family: var(--mono);
     font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--muted);
-    letter-spacing: 0.08em;
+    transition: color 0.25s;
+    user-select: none;
   }
-  footer .accent { color: var(--accent); }
+  .edu-cert-toggle-label.active { color: var(--accent); }
+  .edu-cert-track {
+    width: 44px; height: 24px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg2);
+    position: relative;
+    cursor: none;
+    transition: background 0.3s, border-color 0.3s;
+    flex-shrink: 0;
+  }
+  .edu-cert-track:hover { border-color: rgba(235,94,40,0.45); }
+  .edu-cert-thumb {
+    position: absolute;
+    top: 4px; left: 4px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .edu-cert-track.cert-mode .edu-cert-thumb { transform: translateX(20px); }
+
+  /* panels */
+  .edu-cert-panels { position: relative; }
+  .timeline-panel {
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .timeline-panel.hidden {
+    display: none;
+  }
+  /* ================================ */
 
   /* MOBILE NAV */
   .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; padding: 4px; }
@@ -1175,7 +1439,7 @@
     section { padding: 5rem 2rem; }
     #hero { padding: 6rem 2rem 4rem; }
     .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 1.5rem 2rem; }
+    footer { padding: 0; }
   }
   @media (max-width: 600px) {
     .hero-name { font-size: clamp(2.8rem, 12vw, 4rem); }
@@ -1196,6 +1460,7 @@
 
 <!-- ========== 4TH WALL LOADER ========== -->
 <div id="loader" aria-hidden="true">
+  <div class="ldr-card">
   <!-- fake browser chrome -->
   <div class="ldr-chrome">
     <div class="ldr-chrome-dot"></div>
@@ -1223,6 +1488,20 @@
       <span>UTF-8</span>
     </div>
   </div>
+  </div>
+</div>
+<!-- ======================================= -->
+
+  <!-- progress bar below the card -->
+  <div class="ldr-progress-wrap" id="ldrProgressWrap">
+    <div class="ldr-progress-meta">
+      <span class="ldr-progress-label" id="ldrProgressLabel">initializing...</span>
+      <span class="ldr-progress-pct" id="ldrProgressPct">0%</span>
+    </div>
+    <div class="ldr-progress-track">
+      <div class="ldr-progress-fill" id="ldrProgressFill"></div>
+    </div>
+  </div>
 </div>
 <!-- ======================================= -->
 
@@ -1231,6 +1510,7 @@
 
 <!-- NAV -->
 <nav>
+  <div class="nav-inner">
   <a class="nav-logo" href="#hero">VS<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#hero">Home</a></li>
@@ -1250,23 +1530,22 @@
   <div class="nav-hamburger" id="hamburger" aria-label="menu">
     <span></span><span></span><span></span>
   </div>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-glow"></div>
-  <div class="hero-inner">
 
-    <!-- LEFT: name + tagline + CTA -->
+  <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-tag">// Available for opportunities</div>
       <h1 class="hero-name">
-        Vishesh<br>
-        <span class="accent-line">Singh</span>
+        Vishesh<span class="accent-line">Singh</span>
       </h1>
       <p class="hero-sub">
         <span id="typed-text">Full-Stack Developer</span><span class="typed-cursor">_</span><br>
-        Building clean interfaces &amp; robust systems, one line at a time.
+        Building clean interfaces &amp; robust systems,<br>one line at a time.
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn-primary">View My Work</a>
@@ -1274,7 +1553,7 @@
       </div>
     </div>
 
-    <!-- RIGHT: portrait photo slot -->
+    <!-- photo -->
     <div class="hero-photo-slot">
       <div class="hero-photo-frame">
         <img src="d1.jpeg" alt="Vishesh Singh"
@@ -1284,16 +1563,17 @@
             <circle cx="12" cy="8" r="4"/>
             <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
           </svg>
-          <span>profile.png</span>
+          <span>your photo here</span>
         </div>
         <div class="hero-photo-label">
-          <span>Vishesh Singh</span>
-          <span class="lbl-accent">// Dev</span>
+          <span>vishesh singh</span>
+          <span class="lbl-accent">developer</span>
         </div>
       </div>
     </div>
-
   </div>
+
+  <div class="hero-scroll-hint">scroll<br></div>
 </section>
 
 <!-- ABOUT -->
@@ -1301,11 +1581,10 @@
   <div class="about-grid fade-in">
     <div class="about-text">
       <div class="section-label">01 / About Me</div>
-      <h2 class="section-title">Logic-Driven.<br>Interface-Obsessed.</h2>
-      <p>I'm <strong>Vishesh Singh</strong>, a developer who thrives at the intersection of clean design and robust engineering. I believe great software isn't just functional — it's <span class="highlight">precise, readable, and intentional</span>.</p>
-      <p>With a strong foundation in <strong>HTML/CSS and SQL</strong>, I craft pixel-perfect UIs backed by well-structured data layers. My experience spans across Java-based backend systems, JavaScript-powered interactivity, and Python scripting.</p>
-      <p>Every project I take on starts with one question: <strong>what's the cleanest way to solve this?</strong></p>
-    </div>
+   <h2 class="section-title">Design-Minded.<br>Code-Driven.</h2>
+      <p>Hi! I'm <strong>Vishesh Singh</strong>, a designer focused on building intuitive interfaces through <strong>UI/UX, graphic design, and clean code</strong>. I believe great digital experiences should always be <span class="highlight">visually stunning and fun to use</span>.</p>
+<p>Combining a strong eye for visuals with web and game design skills, I bring ideas to life from scratch. My experience spans across crafting pixel-perfect interfaces, designing unique graphic layouts, and building immersive indie games.</p>
+<p>Every project I take on starts with one question: <strong>how can I make this both beautiful and seamless?</strong></p></div>
     <div class="about-stats">
       <div class="stat-card">
         <span class="stat-num" data-count="6" data-suffix="+">0+</span>
@@ -1322,6 +1601,14 @@
       <div class="stat-card">
         <span class="stat-num">∞</span>
         <span class="stat-label">Curiosity</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" data-count="2" data-suffix="+">0+</span>
+        <span class="stat-label"> Years of Experience</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" data-count="50000" data-suffix="+">0+</span>
+        <span class="stat-label">Lines of code</span>
       </div>
     </div>
   </div>
@@ -1438,38 +1725,82 @@
   
   <div class="about-grid fade-in" style="align-items: start;">
     <div class="about-text">
-      <p>My tech journey began with numbers and precise logic. Having a strong analytical background allows me to treat code not just as syntax, but as an optimization puzzle where every variable and query matters.</p>
-      <p>Whether calculating relational table indexing or structuring layout code, I rely on rigorous foundations to write clean, scalable scripts. My objective is to build practical applications backed by rock-solid architecture.</p>
-    </div>
+     <p>My love for technology dates back to my childhood when I found myself deconstructing software programs and playing around with computers. The intrigue that began at such an early age has now turned into a commitment to excel in the field of IT. Currently studying for my BSc in Information Technology, my approach to programming goes beyond typing codes as I see it as finding solutions to challenging problems.</p>
+      <p> Whether it involves constructing robust databases or creating efficient web designs, my dream lies in combining both theory and application in building scalable applications.</p>
+    <p>With that base in mind, I make sure to build the bridge between theoretical concepts in academia and the best practices used in today’s industry. Far from being satisfied with studying exclusively in the classroom, I continue experimenting with cutting-edge methodologies, tools, and best practices for deploying applications, ensuring that my skills remain absolutely up to date. Web development and architecture are constantly changing fields, and every project is another chance to learn something new.</p>
+  </div>
 
-    <div style="display: flex; flex-direction: column; gap: 0; position: relative;">
-      <!-- continuous vertical line -->
-      <div style="position: absolute; left: 4px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border) 50%, var(--border)); z-index: 0;"></div>
-
-      <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
-        <div style="width: 10px; height: 10px; background: var(--accent); position: absolute; left: 0; top: 6px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(235,94,40,0.2); z-index: 1;"></div>
-        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">2025 — Present</span>
-        <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">BSc in Information Technology</h3>
-        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">Sarvajanik University, Surat</span>
-        <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Currently deep diving into application development, web infrastructures, and data systems administration.</p>
+    <div>
+      <!-- Toggle -->
+      <div class="edu-cert-toggle">
+        <span class="edu-cert-toggle-label active" id="eduLabel">Education</span>
+        <div class="edu-cert-track" id="eduCertTrack" role="switch" aria-checked="false" tabindex="0" title="Switch between Education and Certifications">
+          <div class="edu-cert-thumb"></div>
+        </div>
+        <span class="edu-cert-toggle-label" id="certLabel">Certifications</span>
       </div>
 
-      <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
-        <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
-        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class XII — 2025</span>
-        <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">PCM Stream — 70%</h3>
-        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">GSEB Board</span>
-        <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Built analytical foundations in Physics, Chemistry, and Mathematics, optimizing core logical reasoning skills.</p>
-      </div>
+      <div class="edu-cert-panels">
 
-      <div style="padding-left: 2.2rem; position: relative;">
-        <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
-        <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class X — 2023</span>
-        <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Secondary Education — 86%</h3>
-       <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">GSEB Board</span>
-        <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Graduated with top distinctions, establishing strong performance habits early on.</p>
-      </div>
+        <!-- EDUCATION PANEL -->
+        <div class="timeline-panel" id="eduPanel" style="display: flex; flex-direction: column; gap: 0; position: relative;">
+          <div style="position: absolute; left: 4px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border) 50%, var(--border)); z-index: 0;"></div>
 
+          <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
+            <div style="width: 10px; height: 10px; background: var(--accent); position: absolute; left: 0; top: 6px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(235,94,40,0.2); z-index: 1;"></div>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">2025 — Present</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">BSc in Information Technology</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">Sarvajanik University, Surat</span>
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Currently deep diving into application development, web infrastructures, and data systems administration.</p>
+          </div>
+
+          <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
+            <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class XII — 2025</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">PCM Stream — 70%</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">GSEB Board</span>
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Built analytical foundations in Physics, Chemistry, and Mathematics, optimizing core logical reasoning skills.</p>
+          </div>
+
+          <div style="padding-left: 2.2rem; position: relative;">
+            <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class X — 2023</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Secondary Education — 86%</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">GSEB Board</span>
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Graduated with top distinctions, establishing strong performance habits early on.</p>
+          </div>
+        </div>
+
+        <!-- CERTIFICATIONS PANEL -->
+        <div class="timeline-panel hidden" id="certPanel" style="display: none; flex-direction: column; gap: 0; position: relative;">
+          <div style="position: absolute; left: 4px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border) 50%, var(--border)); z-index: 0;"></div>
+
+          <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
+            <div style="width: 10px; height: 10px; background: var(--accent); position: absolute; left: 0; top: 6px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(235,94,40,0.2); z-index: 1;"></div>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">2025</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Add Your Certification Here</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">Issuing Organisation</span>
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Brief description of what you learned or the credential covers.</p>
+          </div>
+
+          <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
+            <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">2024</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Add Your Certification Here</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">Issuing Organisation</span>
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Brief description of what you learned or the credential covers.</p>
+          </div>
+
+          <div style="padding-left: 2.2rem; position: relative;">
+            <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">2023</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Add Your Certification Here</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">Issuing Organisation</span>
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Brief description of what you learned or the credential covers.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
@@ -1528,17 +1859,11 @@
       <div class="project-thumb">
         <div class="carousel" data-index="0">
           <div class="carousel-track">
-            <div class="carousel-slide" style="background:linear-gradient(135deg,#333030,#1a1818);padding:0;overflow:hidden">
-              <img src="Screenshot (156).png" alt="Project screenshot 4" style="width:100%;height:100%;object-fit:cover;">
-            </div>
              <div class="carousel-slide" style="background:linear-gradient(135deg,#1e2a1e,#121a12);padding:0;overflow:hidden">
               <img src="Screenshot (166).png" alt="Project screenshot 6" style="width:100%;height:100%;object-fit:cover;">
             </div>
             <div class="carousel-slide" style="background:linear-gradient(135deg,#2a2030,#1a1220);padding:0;overflow:hidden">
               <img src="Screenshot (155).png" alt="Project screenshot 5" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <div class="carousel-slide" style="background:linear-gradient(135deg,#1e2a1e,#121a12);padding:0;overflow:hidden">
-              <img src="Screenshot (163).png" alt="Project screenshot 6" style="width:100%;height:100%;object-fit:cover;">
             </div>
             <div class="carousel-slide" style="background:linear-gradient(135deg,#1e2a1e,#121a12);padding:0;overflow:hidden">
               <img src="Screenshot (167).png" alt="Project screenshot 6" style="width:100%;height:100%;object-fit:cover;">
@@ -1550,8 +1875,6 @@
             <div class="carousel-dot active"></div>
             <div class="carousel-dot"></div>
             <div class="carousel-dot"></div>
-             <div class="carousel-dot"></div>
-              <div class="carousel-dot"></div>
           </div>
           <div class="carousel-counter">1 / 3</div>
         </div>
@@ -1584,19 +1907,11 @@
             <div class="carousel-slide">
               <img src="t3.png" alt="Project screenshot 18" style="width:100%;height:100%;object-fit:cover;">
             </div>
-            <div class="carousel-slide">
-              <img src="t4.png" alt="Project screenshot 18" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <div class="carousel-slide">
-              <img src="t5.png" alt="Project screenshot 18" style="width:100%;height:100%;object-fit:cover;">
-            </div>
           </div>
           <button class="carousel-btn carousel-btn-prev" aria-label="Previous">&#8592;</button>
           <button class="carousel-btn carousel-btn-next" aria-label="Next">&#8594;</button>
           <div class="carousel-dots">
             <div class="carousel-dot active"></div>
-            <div class="carousel-dot"></div>
-            <div class="carousel-dot"></div>
             <div class="carousel-dot"></div>
             <div class="carousel-dot"></div>
           </div>
@@ -1627,6 +1942,31 @@
   <div class="contact-grid fade-in">
     <div class="contact-info">
       <p>Have a project in mind, an opportunity to share, or just want to connect? I'm always open to a conversation. Drop a message and I'll get back to you promptly.</p>
+
+      <!-- MAP -->
+      <div style="position:relative;border:1px solid var(--border);overflow:hidden;margin-bottom:1.5rem;">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=72.7800%2C21.1400%2C72.9000%2C21.2400&layer=mapnik&marker=21.1702%2C72.8311"
+          width="100%" height="180"
+          style="display:block;border:none;filter:grayscale(1) contrast(1.1) brightness(0.5) sepia(0.3) hue-rotate(340deg);transition:filter 0.3s;"
+          allowfullscreen loading="lazy" title="Surat, Gujarat"
+          onmouseover="this.style.filter='grayscale(0.3) contrast(1) brightness(0.7) sepia(0.1) hue-rotate(340deg)'"
+          onmouseout="this.style.filter='grayscale(1) contrast(1.1) brightness(0.5) sepia(0.3) hue-rotate(340deg)'"
+        ></iframe>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--white);box-shadow:0 0 0 4px rgba(235,94,40,0.3),0 0 18px rgba(235,94,40,0.5);animation:dotPulse 2s ease-in-out infinite;"></div>
+            <div style="width:2px;height:14px;background:linear-gradient(to bottom,var(--accent),transparent);"></div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:0.35rem 0.75rem;background:rgba(37,36,34,0.88);backdrop-filter:blur(6px);border-top:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;">
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--accent);">📍</span>
+          <span style="font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);">Surat, Gujarat, India</span>
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--border);margin-left:auto;">UTC +5:30</span>
+        </div>
+      </div>
+      <!-- /MAP -->
+
       <div class="contact-socials">
         <a href="mailto:visheshsingh29537@gmail.com" class="social-link">
           <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
@@ -1646,18 +1986,18 @@
         </a>
       </div>
     </div>
-    <form class="contact-form" onsubmit="handleSubmit(event)">
+    <form class="contact-form" id="contactForm" action="https://docs.google.com/forms/u/0/d/1O4DCtWibon0DbNpTP0lBy93dzWn_iNiRp0vgC0hNESU/formResponse" onsubmit="handleSubmit(event)">
       <div class="form-group">
         <label class="form-label" for="name">Your Name</label>
-        <input class="form-input" id="name" type="text" placeholder="Name" required>
+        <input class="form-input" id="name" type="text" placeholder="Name" required name="entry.1090837027">
       </div>
       <div class="form-group">
         <label class="form-label" for="email">Email Address</label>
-        <input class="form-input" id="email" type="email" placeholder="user@domain.com" required>
+        <input class="form-input" id="email" type="email" placeholder="user@domain.com" required name="entry.944660088">
       </div>
-      <div class="form-group">
+      <div class="form-group form-group-grow">
         <label class="form-label" for="message">Message</label>
-        <textarea class="form-textarea" id="message" placeholder="Tell me about your project..." required></textarea>
+        <textarea class="form-textarea" id="message" placeholder="Tell me about your project..." name="entry.1082270633"></textarea>
       </div>
       <button type="submit" class="form-btn">Send Message →</button>
     </form>
@@ -1667,8 +2007,92 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 <span class="accent">Vishesh Singh</span>. All rights reserved.</p>
-  <span>Crafted with precision &amp; obsession.</span>
+  <div class="footer-inner">
+
+    <!-- top grid -->
+    <div class="footer-top">
+
+      <!-- brand + socials -->
+      <div class="footer-brand">
+        <a class="footer-logo" href="#hero">VS<span>.</span></a>
+        <p class="footer-tagline">Building clean interfaces &amp; robust systems — one line at a time.</p>
+        <div class="footer-socials">
+          <!-- GitHub -->
+          <a class="footer-social-link" href="https://github.com/visheshsingh" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a class="footer-social-link" href="https://linkedin.com/in/visheshsingh" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <!-- Twitter / X -->
+          <a class="footer-social-link" href="https://twitter.com/visheshsingh" target="_blank" rel="noopener" aria-label="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M4 4l16 16M4 20L20 4"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a class="footer-social-link" href="https://instagram.com/visheshsingh" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <!-- Email -->
+          <a class="footer-social-link" href="mailto:vishesh@example.com" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+        <div class="footer-status-badge">
+          <div class="footer-status-dot"></div>
+          <span class="footer-status-text">Open to work</span>
+        </div>
+      </div>
+
+      <!-- nav links -->
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <ul class="footer-nav-list">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#story">Story</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- projects -->
+      <div>
+        <div class="footer-col-title">Projects</div>
+        <ul class="footer-nav-list">
+          <li><a href="#projects">All Projects</a></li>
+          <li><a href="#projects">Web Apps</a></li>
+          <li><a href="#projects">Game Dev</a></li>
+          <li><a href="#projects">Databases</a></li>
+          <li><a href="#projects">Open Source</a></li>
+        </ul>
+      </div>
+
+      <!-- contact / elsewhere -->
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <ul class="footer-nav-list">
+          <li><a href="mailto:vishesh@example.com">Email Me</a></li>
+          <li><a href="https://github.com/visheshsingh" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/visheshsingh" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://twitter.com/visheshsingh" target="_blank" rel="noopener">Twitter / X</a></li>
+          <li><a href="#contact">Hire Me</a></li>
+        </ul>
+      </div>
+
+    </div><!-- /footer-top -->
+
+    <!-- bottom bar -->
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 <span class="accent">Vishesh Singh</span>. All rights reserved.</p>
+      <p class="footer-made">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Crafted with precision &amp; <span class="accent">obsession</span>
+      </p>
+    </div>
+
+  </div>
 </footer>
 
 <script>
@@ -1679,6 +2103,17 @@
     const codeEl      = document.getElementById('ldrCode');
     const statusText  = document.getElementById('ldrStatusText');
     const lineCount   = document.getElementById('ldrLineCount');
+    const progressFill  = document.getElementById('ldrProgressFill');
+    const progressPct   = document.getElementById('ldrProgressPct');
+    const progressLabel = document.getElementById('ldrProgressLabel');
+
+    const PROGRESS_LABELS = ['initializing...', 'compiling html...', 'launching...'];
+
+    function setProgress(pct, label) {
+      progressFill.style.width = pct + '%';
+      progressPct.textContent = Math.round(pct) + '%';
+      if (label) progressLabel.textContent = label;
+    }
 
     const LINES = [
       `<span class="s-cmt">// hello, world.</span>`,
@@ -1786,6 +2221,7 @@
     function nextLine() {
       if (lineIndex >= LINES.length) {
         // compile!
+        setProgress(100, '✓ ready');
         statusText.textContent = STATUS[STATUS.length - 1];
         loader.classList.add('compiling');
         setTimeout(() => {
@@ -1802,6 +2238,10 @@
 
       statusText.textContent = STATUS[lineIndex] || 'writing...';
       lineCount.textContent = `Ln ${lineIndex + 1}`;
+
+      // update progress
+      const pct = Math.round((lineIndex / LINES.length) * 90);
+      setProgress(pct, PROGRESS_LABELS[lineIndex] || 'writing...');
 
       typeLine(lineIndex, () => {
         lineIndex++;
@@ -1938,14 +2378,83 @@
 
   document.querySelectorAll('.about-stats').forEach(el => counterObserver.observe(el));
 
-  // Form handler
+  // Form handler — submits silently to Google Forms via fetch (no-cors)
   function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.form-btn');
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = 'var(--accent3)';
-    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = 'var(--accent)'; e.target.reset(); }, 3000);
+    const form = e.target;
+    const btn  = form.querySelector('.form-btn');
+
+    const data = new FormData(form);
+    const params = new URLSearchParams(data);
+
+    // Google Forms submission endpoint
+    const url = form.action;
+
+    fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',          // required — Google Forms doesn't allow CORS
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString()
+    })
+    .then(() => {
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'var(--accent3)';
+      btn.style.color = 'var(--bg)';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = 'var(--accent)';
+        btn.style.color = '';
+      }, 3500);
+    })
+    .catch(() => {
+      // no-cors fetch never actually throws on network errors from Google,
+      // but handle just in case
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'var(--accent3)';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = 'var(--accent)';
+      }, 3500);
+    });
   }
+
+  // ===== EDU / CERT TOGGLE =====
+  (function() {
+    const track    = document.getElementById('eduCertTrack');
+    const eduPanel = document.getElementById('eduPanel');
+    const certPanel= document.getElementById('certPanel');
+    const eduLabel = document.getElementById('eduLabel');
+    const certLabel= document.getElementById('certLabel');
+    let isCert = false;
+
+    function switchPanel(showCert) {
+      isCert = showCert;
+      track.classList.toggle('cert-mode', showCert);
+      track.setAttribute('aria-checked', showCert ? 'true' : 'false');
+
+      if (showCert) {
+        eduPanel.style.display  = 'none';
+        certPanel.style.display = 'flex';
+        eduLabel.classList.remove('active');
+        certLabel.classList.add('active');
+      } else {
+        certPanel.style.display = 'none';
+        eduPanel.style.display  = 'flex';
+        certLabel.classList.remove('active');
+        eduLabel.classList.add('active');
+      }
+    }
+
+    track.addEventListener('click', () => switchPanel(!isCert));
+    track.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchPanel(!isCert); }
+    });
+    eduLabel.addEventListener('click',  () => switchPanel(false));
+    certLabel.addEventListener('click', () => switchPanel(true));
+  })();
+  // ================================
 
   // Smooth mobile menu (simple toggle)
   document.getElementById('hamburger').addEventListener('click', () => {
