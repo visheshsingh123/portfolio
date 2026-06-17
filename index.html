@@ -813,11 +813,14 @@
     background: var(--bg3);
     border: 1px solid var(--border);
     overflow: hidden;
-    transition: border-color 0.25s, transform 0.25s;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     position: relative;
+    cursor: none;
   }
-  .project-card:hover { border-color: rgba(235,94,40,0.5); transform: translateY(-5px); }
+  .project-card[data-href]:not([data-href="#"]) { cursor: none; }
+  .project-card:hover { border-color: rgba(235,94,40,0.5); transform: translateY(-5px); box-shadow: 0 12px 40px rgba(235,94,40,0.12); }
   .project-card:hover .project-thumb-overlay { opacity: 1; }
+  .project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: rgba(235,94,40,0.5); }
   .project-thumb {
     height: 200px;
     position: relative;
@@ -917,20 +920,29 @@
 
   .project-thumb-overlay {
     position: absolute; inset: 0;
-    background: rgba(235,94,40,0.08);
+    background: rgba(235,94,40,0.13);
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.25s;
     display: flex; align-items: center; justify-content: center;
     z-index: 2; pointer-events: none;
+    backdrop-filter: blur(1px);
   }
   .project-thumb-overlay span {
     font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--accent);
+    font-size: 0.72rem;
+    color: var(--accent3);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    border: 1px solid var(--accent);
-    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255,252,242,0.6);
+    padding: 0.45rem 1.15rem;
+    background: rgba(37,36,34,0.72);
+    backdrop-filter: blur(4px);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .project-card:hover .project-thumb-overlay span {
+    background: rgba(235,94,40,0.22);
+    border-color: var(--accent);
+    color: var(--white);
   }
 
   .project-body { padding: 1.5rem; }
@@ -2069,51 +2081,48 @@
   <h2 class="section-title fade-in">Selected<br>Work</h2>
   <div class="projects-grid fade-in">
 
-    <div class="project-card">
-      <div class="project-thumb">
-        <div class="carousel" data-index="0">
-          <div class="carousel-track">
-            <div class="carousel-slide" style="background:linear-gradient(135deg,#2e2b28,#1a1714);padding:0;overflow:hidden">
-              <img src="f1.png" alt="Project screenshot 1" style="width:100%;height:100%;object-fit:cover;">
-              <span class="carousel-slide-label">Artistic Web</span>
-            </div>
-            <div class="carousel-slide" style="background:linear-gradient(135deg,#3a2218,#251510);padding:0;overflow:hidden">
-              <img src="f2.png" alt="Project screenshot 2" style="width:100%;height:100%;object-fit:cover;">
-              <span class="carousel-slide-label">Login page</span>
-            </div>
-            <div class="carousel-slide" style="background:linear-gradient(135deg,#1e2228,#12181e);padding:0;overflow:hidden">
-              <img src="f3.png" alt="Project screenshot 3" style="width:100%;height:100%;object-fit:cover;">
-              <span class="carousel-slide-label">Others</span>
-            </div>
-          </div>
-          <button class="carousel-btn carousel-btn-prev" aria-label="Previous">&#8592;</button>
-          <button class="carousel-btn carousel-btn-next" aria-label="Next">&#8594;</button>
-          <div class="carousel-dots">
-            <div class="carousel-dot active"></div>
-            <div class="carousel-dot"></div>
-            <div class="carousel-dot"></div>
-          </div>
-          <div class="carousel-counter">1 / 3</div>
+    <div class="project-card" data-href="https://visheshsingh123.github.io/resumify/" role="link" tabindex="0" aria-label="Resumify — Resume Builder with 20+ Presets">
+  <div class="project-thumb">
+    <div class="carousel" data-index="0">
+      <div class="carousel-track">
+        <div class="carousel-slide" style="background:linear-gradient(135deg,#0f172a,#1e293b);padding:0;overflow:hidden">
+          <img src="f1.jpeg" alt="Resumify template gallery" style="width:100%;height:100%;object-fit:cover;">
+          <span class="carousel-slide-label">20+ Presets</span>
         </div>
-        <div class="project-thumb-overlay"><span>View Project →</span></div>
-      </div>
-      <div class="project-body">
-        <div class="project-meta">
-          <span class="project-tag">FIGMA</span>
-          <span class="project-tag">UI/UX</span>
-          <span class="project-tag">Prototyping</span>
+        <div class="carousel-slide" style="background:linear-gradient(135deg,#0c1a2e,#112240);padding:0;overflow:hidden">
+          <img src="f2.jpeg" alt="Resumify editor interface" style="width:100%;height:100%;object-fit:cover;">
+          <span class="carousel-slide-label">Live Editor</span>
         </div>
-        <h3 class="project-title">UI/UX Design Portfolio (on figma)</h3>
-        <p class="project-desc">A sleek, user-centric interface design focused on 
-          intuitive navigation, modern visual hierarchy, and interactive
-           prototyping. Developed with reusable components, responsive layouts,
-            and a clean aesthetic tailored for an optimal user experience.</p>
-        <div class="project-links">
+        <div class="carousel-slide" style="background:linear-gradient(135deg,#0d1f1a,#0a2318);padding:0;overflow:hidden">
+          <img src="f3.jpeg" alt="Resumify export options" style="width:100%;height:100%;object-fit:cover;">
+          <span class="carousel-slide-label">One-Click Export</span>
         </div>
       </div>
+      <button class="carousel-btn carousel-btn-prev" aria-label="Previous">&#8592;</button>
+      <button class="carousel-btn carousel-btn-next" aria-label="Next">&#8594;</button>
+      <div class="carousel-dots">
+        <div class="carousel-dot active"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+      </div>
+      <div class="carousel-counter">1 / 3</div>
     </div>
+    <div class="project-thumb-overlay"><span>View Project →</span></div>
+  </div>
+  <div class="project-body">
+    <div class="project-meta">
+      <span class="project-tag">React</span>
+      <span class="project-tag">Resume Builder</span>
+      <span class="project-tag">PDF Export</span>
+    </div>
+    <h3 class="project-title">Resumify — Resume Builder with 20+ Presets</h3>
+    <p class="project-desc">A fast, no-friction resume builder offering 20+ professionally designed presets — from minimal to creative layouts. Built with a live preview editor, section drag-and-drop, and one-click PDF export. Every template is ATS-friendly and fully customizable to help users land interviews, not just look good on screen.</p>
+    <div class="project-links">
+    </div>
+  </div>
+</div>
 
-    <div class="project-card">
+    <div class="project-card" data-href="https://rastersoulstudios.itch.io/always-open" role="link" tabindex="0" aria-label="Retro PSX 3D Game">
       <div class="project-thumb">
         <div class="carousel" data-index="0">
           <div class="carousel-track">
@@ -2152,7 +2161,7 @@
     </div>
 
 
-    <div class="project-card">
+    <div class="project-card" data-href="https://drive.google.com/drive/folders/1c_5IZURlJqSJVWu9BU-6skLS-_OREn7u?usp=drive_link" role="link" tabindex="0" aria-label="Visual Brand Identity, Graphics & Thumbnail">
       <div class="project-thumb">
         <div class="carousel" data-index="0">
           <div class="carousel-track">
@@ -2725,6 +2734,26 @@
     links.style.padding = '1.5rem 2rem';
     links.style.borderBottom = '1px solid var(--border)';
   });
+
+  // ===== PROJECT CARD CLICK =====
+  (function () {
+    document.querySelectorAll('.project-card[data-href]').forEach(function (card) {
+      const href = card.getAttribute('data-href');
+      if (!href || href === '#') return; // skip placeholder links
+
+      function openLink(e) {
+        // Don't navigate if user clicked a carousel button, dot, or link inside the card
+        if (e.target.closest('.carousel-btn, .carousel-dot, .project-link, a, button')) return;
+        window.open(href, '_blank', 'noopener,noreferrer');
+      }
+
+      card.addEventListener('click', openLink);
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.open(href, '_blank', 'noopener,noreferrer'); }
+      });
+    });
+  })();
+  // ==============================
 </script>
 
 <!-- ===== CHATBOT ===== -->
