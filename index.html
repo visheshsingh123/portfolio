@@ -1540,7 +1540,7 @@
     right: 2rem;
     z-index: 1000;
     width: min(380px, calc(100vw - 2rem));
-    height: min(520px, calc(100vh - 8rem));
+    height: min(560px, calc(100vh - 8rem));
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: 14px;
@@ -1681,27 +1681,27 @@
 
   /* chips area */
   .chat-chips {
-    border-top: 1px solid var(--border);
-    padding: 0.65rem 0.75rem;
+    padding: 0.5rem 0.75rem 0;
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
     flex-shrink: 0;
     background: var(--bg2);
-    max-height: 130px;
+    max-height: 90px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--accent) var(--bg2);
   }
+  .chat-chips:empty { display: none; }
   .chat-chips::-webkit-scrollbar { width: 3px; }
   .chat-chips::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
   .chat-chip {
     background: var(--bg3);
     border: 1px solid var(--border);
     border-radius: 999px;
-    padding: 0.32rem 0.75rem;
+    padding: 0.28rem 0.7rem;
     font-family: var(--mono);
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     color: var(--text);
     cursor: none;
     letter-spacing: 0.02em;
@@ -1716,10 +1716,70 @@
     transform: translateY(-1px);
   }
 
+  /* input row */
+  .chat-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.75rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    flex-shrink: 0;
+  }
+  .chat-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 0.6rem;
+    transition: border-color 0.2s;
+  }
+  .chat-input-wrap:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(235,94,40,0.12);
+  }
+  #chat-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent3);
+    letter-spacing: 0.02em;
+    padding: 0.55rem 0;
+    min-width: 0;
+  }
+  #chat-input::placeholder { color: var(--muted); }
+  .chat-send-btn {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    background: var(--accent);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: none;
+    transition: background 0.18s, transform 0.15s;
+  }
+  .chat-send-btn:hover { background: #d44e1e; transform: scale(1.07); }
+  .chat-send-btn:active { transform: scale(0.95); }
+  .chat-send-btn svg {
+    width: 14px; height: 14px;
+    fill: none;
+    stroke: #fffcf2;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
   @media (hover: none), (pointer: coarse) {
     #chat-btn { cursor: pointer; }
     .chat-chip { cursor: pointer; }
     .chat-header-close { cursor: pointer; }
+    .chat-send-btn { cursor: pointer; }
+    #chat-input { cursor: text; }
   }
   /* ==================== */
 </style>
@@ -2783,29 +2843,34 @@
     </button>
   </div>
   <div class="chat-messages" id="chat-messages"></div>
-  <div class="chat-chips" id="chat-chips"></div>
+  <div class="chat-input-row">
+    <div class="chat-input-wrap">
+      <input id="chat-input" type="text" placeholder="Type a message…" autocomplete="off" maxlength="300" aria-label="Chat message" />
+    </div>
+    <button class="chat-send-btn" id="chat-send-btn" aria-label="Send message">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
 </div>
 
 <script>
 (function() {
+  var GROQ_KEY = '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';
+  var GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+  var SYSTEM_PROMPT = `You are a friendly portfolio assistant for Vishesh Singh, a Full-Stack Developer, UI/UX Enthusiast, Database Architect, and Game Developer based in Surat, Gujarat, India. Answer questions about Vishesh concisely and helpfully. If you don't know something specific, suggest the visitor contact Vishesh directly at visheshsingh29537@gmail.com. Keep replies short — 2-3 sentences max unless more detail is clearly needed.`;
+
+  var history = [];
+
   const btn      = document.getElementById('chat-btn');
   const closeBtn = document.getElementById('chat-close-btn');
   const win      = document.getElementById('chat-window');
   const messages = document.getElementById('chat-messages');
-  const chipsEl  = document.getElementById('chat-chips');
-
-  const FAQ = [
-    { q: "Who is Vishesh?", a: "I'm Vishesh Singh — a Full-Stack Developer, UI/UX Enthusiast, Database Architect, and Game Developer based in Surat, Gujarat, India. I love building polished, performant web experiences from end to end." },
-    { q: "What are your skills?", a: "My core stack includes JavaScript, TypeScript, React, Node.js, and Python. I'm also experienced in SQL & NoSQL databases, UI/UX design, and game development. I enjoy working across the full stack!" },
-    { q: "Are you available for work?", a: "Yes! I'm open to full-time roles, freelance projects, and collaborations. If you have something interesting in mind, I'd love to hear about it — drop me a message!" },
-    { q: "What kind of projects do you build?", a: "I build web apps, developer tools, interactive UIs, database-driven systems, and games. I care a lot about clean code, great design, and smooth user experiences." },
-    { q: "How can I contact you?", a: "You can reach me at visheshsingh29537@gmail.com — I typically reply within a day. You can also find me on GitHub and LinkedIn linked in the footer!" },
-    { q: "Where are you based?", a: "I'm based in Surat, Gujarat, India (UTC +5:30). I'm open to remote work globally and can adjust to different time zones for collaboration." },
-    { q: "Do you do freelance work?", a: "Absolutely! I take on freelance projects for web development, UI/UX design, and database architecture. Feel free to reach out with your requirements and we can discuss." },
-    { q: "What's your design philosophy?", a: "I believe great software should be both functional and beautiful. I pay close attention to typography, spacing, motion, and detail — the kind of things users feel even if they can't name them." }
-  ];
+  const input    = document.getElementById('chat-input');
+  const sendBtn  = document.getElementById('chat-send-btn');
 
   let isOpen = false;
+  let isBotTyping = false;
 
   function toggleChat() {
     isOpen = !isOpen;
@@ -2813,14 +2878,14 @@
     win.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', isOpen);
     if (isOpen && messages.children.length === 0) greet();
+    if (isOpen) setTimeout(() => input.focus(), 300);
   }
 
   btn.addEventListener('click', toggleChat);
   closeBtn.addEventListener('click', () => { isOpen = true; toggleChat(); });
 
   function greet() {
-    addBubble('bot', "Hey! 👋 I'm Vishesh's assistant. Tap a question below to learn more about him!");
-    renderChips(FAQ);
+    addBubble('bot', "Hey! 👋 I'm Vishesh's portfolio assistant. Ask me anything about him!");
   }
 
   function addBubble(role, text) {
@@ -2833,6 +2898,7 @@
   }
 
   function showTyping() {
+    if (document.getElementById('chat-typing-ind')) return;
     const el = document.createElement('div');
     el.className = 'chat-typing';
     el.id = 'chat-typing-ind';
@@ -2845,35 +2911,56 @@
     if (el) el.remove();
   }
 
-  function renderChips(items) {
-    chipsEl.innerHTML = '';
-    items.forEach((item, i) => {
-      const chip = document.createElement('button');
-      chip.className = 'chat-chip';
-      chip.textContent = item.q;
-      chip.style.animationDelay = (i * 40) + 'ms';
-      chip.addEventListener('click', () => handleQ(item));
-      chipsEl.appendChild(chip);
-    });
+  async function handleUserMessage() {
+    const text = input.value.trim();
+    if (!text || isBotTyping) return;
+    input.value = '';
+    addBubble('user', text);
+    isBotTyping = true;
+    showTyping();
+
+    history.push({ role: 'user', content: text });
+
+    try {
+      const res = await fetch(GROQ_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + GROQ_KEY
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
+          max_tokens: 200,
+          temperature: 0.7
+        })
+      });
+
+      const data = await res.json();
+      console.log('Groq status:', res.status, data);
+
+      if (!res.ok) {
+        hideTyping();
+        addBubble('bot', 'Error ' + res.status + ': ' + (data.error?.message || JSON.stringify(data)));
+        isBotTyping = false;
+        return;
+      }
+
+      const reply = data.choices?.[0]?.message?.content?.trim() || "Sorry, I couldn't get a response. Try again!";
+      history.push({ role: 'assistant', content: reply });
+      hideTyping();
+      addBubble('bot', reply);
+    } catch (err) {
+      console.error('Fetch error:', err);
+      hideTyping();
+      addBubble('bot', 'Network error: ' + err.message);
+    }
+
+    isBotTyping = false;
   }
 
-  function handleQ(item) {
-    addBubble('user', item.q);
-    chipsEl.innerHTML = '';
-    showTyping();
-    setTimeout(() => {
-      hideTyping();
-      addBubble('bot', item.a);
-      setTimeout(() => {
-        const more = document.createElement('div');
-        more.className = 'chat-bubble bot';
-        more.textContent = 'Anything else you want to know?';
-        messages.appendChild(more);
-        messages.scrollTop = messages.scrollHeight;
-        renderChips(FAQ.filter(f => f.q !== item.q));
-      }, 200);
-    }, 1800);
-  }
+  sendBtn.addEventListener('click', handleUserMessage);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') handleUserMessage(); });
 })();
 </script>
 <!-- ==================== -->
