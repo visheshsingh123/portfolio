@@ -352,48 +352,6 @@
     opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
   }
 
-  /* role badges panel */
-  .hero-roles {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    opacity: 0; animation: fadeUp 0.7s 0.75s forwards;
-  }
-  .role-badge {
-    display: flex; align-items: center; gap: 0.85rem;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    padding: 0.9rem 1.3rem;
-    min-width: 230px;
-    position: relative; overflow: hidden;
-    transition: border-color 0.25s, transform 0.25s;
-  }
-  .role-badge::before {
-    content: '';
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px;
-  }
-  .role-badge:nth-child(1)::before { background: var(--accent); }
-  .role-badge:nth-child(2)::before { background: var(--accent2); }
-  .role-badge:nth-child(3)::before { background: var(--accent3); }
-  .role-badge:nth-child(4)::before { background: #eb5e28; }
-  .role-badge:nth-child(5)::before { background: #eb5e28; }
-  .role-badge:nth-child(6)::before { background: #403d39; }
-  .role-badge:hover { border-color: rgba(235,94,40,0.35); transform: translateX(-4px); }
-
-  .role-icon {
-    font-size: 1.3rem; line-height: 1; flex-shrink: 0;
-  }
-  .role-text { display: flex; flex-direction: column; gap: 0.1rem; }
-  .role-title {
-    font-family: var(--sans); font-weight: 700;
-    font-size: 0.88rem; color: var(--white);
-    letter-spacing: 0.01em;
-  }
-  .role-tech {
-    font-family: var(--mono); font-size: 0.6rem;
-    color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
-  }
   .btn-primary {
     font-family: var(--mono);
     font-size: 0.78rem;
@@ -1195,8 +1153,6 @@
     .hero-photo-slot { order: 4; width: 100%; max-width: 320px; height: auto; margin: 0 auto; }
     .hero-cta { order: 5; }
     .hero-scroll-hint { display: none; }
-    .hero-roles { flex-direction: row; flex-wrap: wrap; }
-    .role-badge { min-width: 180px; flex: 1; }
   }
   @media (max-width: 900px) {
     nav { padding: 1.2rem 2rem; }
@@ -1220,7 +1176,6 @@
   @media (max-width: 600px) {
     .hero-name { font-size: clamp(2.8rem, 12vw, 4rem); }
     .projects-grid { grid-template-columns: 1fr; }
-    .role-badge { min-width: 100%; }
   }
 
   /* Hide custom cursor on touch/mobile — pointer is a finger, not a mouse */
@@ -1269,7 +1224,6 @@
         Vishesh<span class="accent-line">Singh</span>
       </h1>
       <p class="hero-sub">
-        Full-Stack Developer &amp; UI/UX Designer<br>
         Building clean interfaces &amp; robust systems,<br>one line at a time.
       </p>
       <div class="hero-cta">
@@ -1651,7 +1605,7 @@
 <footer>
   <div class="footer-inner footer-simple">
     <a class="footer-logo" href="#hero">VS<span>.</span></a>
-    <p class="footer-copy">© 2025 <span class="accent">Vishesh Singh</span>. All rights reserved.</p>
+    <p class="footer-copy">© 2026 <span class="accent">Vishesh Singh</span>. All rights reserved.</p>
     <div class="footer-socials">
       <!-- GitHub -->
       <a class="footer-social-link" href="https://github.com/visheshsingh123" target="_blank" rel="noopener" aria-label="GitHub">
