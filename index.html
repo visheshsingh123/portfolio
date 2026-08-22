@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vishesh Singh — Full-Stack Developer & UI/UX Designer Portfolio</title>
+<title>Vishesh Singh — IT Student, Developer & Designer Portfolio</title>
 <meta name="google-site-verification" content="LoqvPvLi23khtu8zaWT42EBOnnnAT9v60HbxTSSJPsk" />
-<meta name="description" content="Portfolio of Vishesh Singh, a full-stack developer and UI/UX designer based in Surat, India, building clean interfaces and robust web applications with React, Node.js, and modern tooling.">
-<meta name="keywords" content="Vishesh Singh, full-stack developer, UI/UX designer, web developer Surat, React developer, portfolio, front-end developer, graphic designer">
+<meta name="description" content="Portfolio of Vishesh Singh, an Information Technology student based in Surat, India, learning to build clean interfaces and web apps with React, Node.js, and modern tooling.">
+<meta name="keywords" content="Vishesh Singh, IT student, aspiring developer, UI/UX designer, web developer Surat, React developer, student portfolio, front-end developer, graphic designer">
 <meta name="author" content="Vishesh Singh">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://visheshsingh.vercel.app/">
@@ -14,16 +14,16 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://visheshsingh.vercel.app/">
-<meta property="og:title" content="Vishesh Singh — Full-Stack Developer & UI/UX Designer">
-<meta property="og:description" content="Full-stack developer and UI/UX designer building clean interfaces and robust web applications. Explore selected projects, skills, and background.">
+<meta property="og:title" content="Vishesh Singh — IT Student, Developer & Designer">
+<meta property="og:description" content="Building clean interfaces and web apps as an IT student. Explore my projects, skills, and background.">
 <meta property="og:image" content="https://visheshsingh.vercel.app/d1.jpeg">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://visheshsingh.vercel.app/">
-<meta name="twitter:title" content="Vishesh Singh — Full-Stack Developer & UI/UX Designer">
-<meta name="twitter:description" content="Full-stack developer and UI/UX designer building clean interfaces and robust web applications. Explore selected projects, skills, and background.">
+<meta name="twitter:title" content="Vishesh Singh — IT Student, Developer & Designer">
+<meta name="twitter:description" content="Building clean interfaces and web apps as an IT student. Explore my projects, skills, and background.">
 <meta name="twitter:image" content="https://visheshsingh.vercel.app/d1.jpeg">
 <meta name="twitter:creator" content="@visheshsingh">
 
@@ -35,7 +35,7 @@
   "@type": "Person",
   "name": "Vishesh Singh",
   "url": "https://visheshsingh.vercel.app/",
-  "jobTitle": "Full-Stack Developer & UI/UX Designer",
+  "jobTitle": "IT Student & Aspiring Developer",
   "image": "https://visheshsingh.vercel.app/d1.jpeg",
   "email": "mailto:visheshsingh29537@gmail.com",
   "sameAs": [
@@ -296,7 +296,6 @@
     font-family: var(--mono); font-size: 0.6rem; color: var(--muted);
     letter-spacing: 0.12em; text-transform: uppercase;
   }
-  .hero-photo-label .lbl-accent { color: var(--accent); }
 
   /* HERO STAT GRID */
   .hero-stat-grid {
@@ -385,7 +384,7 @@
     display: none;
   }
   /* text node floats above fill via isolation */
-  .btn-primary, .btn-secondary, .form-btn { isolation: isolate; }
+  .btn-primary, .btn-secondary { isolation: isolate; }
 
   .btn-secondary {
     font-family: var(--mono);
@@ -696,14 +695,6 @@
   }
   /* ────────────── */
 
-  /* unique per-card gradients — kept for fallback */
-  .project-card:nth-child(1) .carousel-slide:nth-child(1) { background: linear-gradient(135deg, #2e2b28, #1e1c1a); }
-  .project-card:nth-child(2) .carousel-slide:nth-child(1) { background: linear-gradient(135deg, #333030, #252220); }
-  .project-card:nth-child(3) .carousel-slide:nth-child(1) { background: linear-gradient(135deg, #2e2b28, #1e1c1a); }
-  .project-card:nth-child(4) .carousel-slide:nth-child(1) { background: linear-gradient(135deg, #333030, #252220); }
-  .project-card:nth-child(5) .carousel-slide:nth-child(1) { background: linear-gradient(135deg, #2e2b28, #1e1c1a); }
-  .project-card:nth-child(6) .carousel-slide:nth-child(1) { background: linear-gradient(135deg, #333030, #252220); }
-
   .project-thumb-overlay {
     position: absolute; inset: 0;
     background: rgba(235,94,40,0.13);
@@ -761,250 +752,9 @@
   .project-links {
     display: flex; gap: 1rem;
   }
-  .project-link {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    display: flex; align-items: center; gap: 0.4rem;
-  }
-  .project-link:hover { color: var(--accent); }
-  .project-link svg { width: 12px; height: 12px; }
 
   /* CONTACT */
   #contact { background: var(--bg); }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 4rem;
-    max-width: 1100px;
-    align-items: stretch;
-    margin: 0 auto;
-  }
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-  }
-  .contact-info p {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: var(--muted);
-    margin-bottom: 1.2rem;
-  }
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    height: 100%;
-  }
-  /* the message group stretches to fill leftover space */
-  .contact-form .form-group-grow {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-  .contact-form .form-group-grow .form-textarea {
-    flex: 1;
-    min-height: 160px;
-    height: auto;
-    resize: none;
-  }
-  /* button fills full width so the column looks intentional */
-  .contact-form .form-btn {
-    align-self: stretch;
-    width: 100%;
-    text-align: center;
-  }
-
-  /* availability badge */
-  .availability-badge {
-    display: inline-flex; align-items: center; gap: 0.6rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid rgba(235,94,40,0.4);
-    background: rgba(235,94,40,0.06);
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-  }
-  .availability-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    animation: dotPulse 2s ease-in-out infinite;
-  }
-
-  /* map */
-  .contact-map-wrap {
-    position: relative;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-  }
-  .contact-map-wrap iframe {
-    display: block;
-    width: 100%; height: 220px;
-    border: none;
-    filter: grayscale(1) contrast(1.1) brightness(0.55) sepia(0.25) hue-rotate(340deg);
-    transition: filter 0.3s;
-  }
-  .contact-map-wrap:hover iframe { filter: grayscale(0.4) contrast(1) brightness(0.7) sepia(0.15) hue-rotate(340deg); }
-  .map-pin-overlay {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-  }
-  .map-pin {
-    display: flex; flex-direction: column; align-items: center; gap: 0;
-  }
-  .map-pin-dot {
-    width: 14px; height: 14px; border-radius: 50%;
-    background: var(--accent);
-    border: 2px solid var(--white);
-    box-shadow: 0 0 0 4px rgba(235,94,40,0.3), 0 0 20px rgba(235,94,40,0.5);
-    animation: dotPulse 2s ease-in-out infinite;
-  }
-  .map-pin-line {
-    width: 2px; height: 16px;
-    background: linear-gradient(to bottom, var(--accent), transparent);
-  }
-  .map-location-label {
-    position: absolute; bottom: 0.75rem; left: 0.75rem;
-    font-family: var(--mono); font-size: 0.65rem;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--white);
-    background: rgba(37,36,34,0.85);
-    padding: 0.3rem 0.6rem;
-    border-left: 2px solid var(--accent);
-    backdrop-filter: blur(4px);
-  }
-
-  .contact-socials {
-    display: flex; flex-direction: column; gap: 0.6rem;
-    margin-top: auto;
-    padding-top: 0.5rem;
-  }
-  .social-link {
-    display: flex; align-items: center; gap: 0.9rem;
-    text-decoration: none;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    padding: 0.65rem 0.9rem;
-    border: 1px solid var(--border);
-    transition: all 0.2s;
-    position: relative; overflow: hidden;
-  }
-  .social-link::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: rgba(235,94,40,0.05);
-    transform: translateX(-101%);
-    transition: transform 0.25s ease;
-    z-index: -1;
-  }
-  .social-link:hover { color: var(--accent); border-color: rgba(235,94,40,0.35); }
-  .social-link:hover::before { transform: translateX(0); }
-  .social-icon { width: 15px; height: 15px; flex-shrink: 0; }
-
-  .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
-  .form-label {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-  .form-input, .form-textarea {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.85rem 1rem;
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    resize: none;
-  }
-  .form-input:focus, .form-textarea:focus {
-    border-color: rgba(235,94,40,0.5);
-    box-shadow: 0 0 0 3px rgba(235,94,40,0.08);
-  }
-  .form-textarea { height: 130px; }
-  .form-btn {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 1rem 2rem;
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    font-weight: 700;
-    cursor: none;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.3s ease;
-    align-self: stretch;
-    width: 100%;
-    text-align: center;
-  }
-  .form-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform: translateX(-101%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: -1;
-  }
-  .form-btn:hover { color: var(--bg); }
-  .form-btn:hover::before { transform: translateX(0); }
-
-  /* map embed */
-  .map-box {
-    border: 1px solid var(--border);
-    overflow: hidden;
-    position: relative;
-    opacity: 0; animation: fadeUp .7s .8s forwards;
-  }
-  .map-box iframe {
-    width: 100%; height: 220px;
-    display: block; filter: invert(90%) hue-rotate(175deg) saturate(0.6) brightness(0.85);
-    border: none;
-  }
-  .map-label {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(8,12,16,.9));
-    padding: .6rem 1rem;
-    font-family: var(--mono); font-size: .65rem;
-    color: var(--accent); letter-spacing: .12em; text-transform: uppercase;
-    display: flex; align-items: center; gap: .5rem;
-  }
-  .map-label::before { content: '📍'; font-size: .8rem; }
-
-  /* social row */
-  .socials-row {
-    display: flex; gap: .75rem; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp .6s .9s forwards;
-  }
-  .social-btn {
-    display: flex; align-items: center; gap: .55rem;
-    font-family: var(--mono); font-size: .68rem;
-    color: var(--muted); text-decoration: none;
-    border: 1px solid var(--border); padding: .55rem 1rem;
-    letter-spacing: .08em; text-transform: uppercase;
-    transition: all .2s;
-  }
-  .social-btn:hover { color: var(--accent); border-color: rgba(0,229,255,.35); background: rgba(0,229,255,.04); }
-  .social-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
-
 
   /* FOOTER */
   footer {
@@ -1147,7 +897,7 @@
   @media (max-width: 1000px) {
     .hero-inner { grid-template-columns: 1fr; gap: 1.75rem; }
     .hero-content { display: contents; }
-    .hero-tag { order: 1; }
+    .hero-tag { order: 1; justify-self: start; }
     .hero-name { order: 2; }
     .hero-sub { order: 3; }
     .hero-photo-slot { order: 4; width: 100%; max-width: 320px; height: auto; margin: 0 auto; }
@@ -1155,7 +905,7 @@
     .hero-scroll-hint { display: none; }
   }
   @media (max-width: 900px) {
-    nav { padding: 1.2rem 2rem; }
+    nav { padding: 0 2rem; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
     .nav-resume-btn {
@@ -1170,7 +920,7 @@
     .nav-resume-btn .nav-resume-label { display: none; }
     section { padding: 5rem 2rem; }
     #hero { padding: 6rem 2rem 4rem; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     footer { padding: 0; }
   }
   @media (max-width: 600px) {
@@ -1219,12 +969,12 @@
 
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-tag">// Available for opportunities</div>
+      <div class="hero-tag">// Open to opportunities</div>
       <h1 class="hero-name">
         Vishesh<span class="accent-line">Singh</span>
       </h1>
       <p class="hero-sub">
-        Building clean interfaces &amp; robust systems,<br>one line at a time.
+        Building clean interfaces &amp; solid apps,<br>one project at a time.
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn-primary">View My Work</a>
@@ -1251,8 +1001,8 @@
 
       <div class="hero-stat-grid">
         <article><p>Projects</p><h3>6+</h3></article>
-        <article><p>Focus</p><h3>Full-Stack</h3></article>
-        <article><p>Stack</p><h3>Java</h3></article>
+        <article><p>Focus</p><h3>Web &amp; App</h3></article>
+        <article><p>Learning</p><h3>Java</h3></article>
       </div>
     </div>
   </div>
@@ -1266,9 +1016,9 @@
     <div class="about-text">
       <div class="section-label">01 / About Me</div>
    <h2 class="section-title">Design-Minded.<br>Code-Driven.</h2>
-      <p>Hi! I'm <strong>Vishesh Singh</strong>, a designer focused on building intuitive interfaces through <strong>UI/UX, graphic design, and clean code</strong>. I believe great digital experiences should always be <span class="highlight">visually stunning and fun to use</span>.</p>
-<p>Combining a strong eye for visuals with web and game design skills, I bring ideas to life from scratch. My experience spans across crafting pixel-perfect interfaces, designing unique graphic layouts, and building immersive indie games.</p>
-<p>Every project I take on starts with one question: <strong>how can I make this both beautiful and seamless?</strong></p></div>
+      <p>Hi! I'm <strong>Vishesh Singh</strong>, an IT student who enjoys building intuitive interfaces through <strong>UI/UX, graphic design, and clean code</strong>. I believe good digital experiences should always be <span class="highlight">visually appealing and fun to use</span>.</p>
+<p>I combine a growing eye for visuals with web and game design skills to bring ideas to life. My projects so far span pixel-perfect interfaces, graphic layouts, and small indie games.</p>
+<p>Every project I take on starts with one question: <strong>how can I make this both beautiful and easy to use?</strong></p></div>
     <div>
       <!-- Toggle -->
       <div class="edu-cert-toggle">
@@ -1347,7 +1097,7 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="section-label fade-in">02 / Skills</div>
-  <h2 class="section-title fade-in">Tools and concepts I use<br>for systems.</h2>
+  <h2 class="section-title fade-in">Tools and concepts<br>I work with.</h2>
   <div class="skill-groups fade-in">
 
     <div class="skill-group">
@@ -1373,7 +1123,6 @@
           <span class="skill-pill">Scripting</span>
           <span class="skill-pill">Pandas</span>
           <span class="skill-pill">Flask</span>
-          <span class="skill-pill">Automation</span>
         </div>
       </div>
       <div class="skill-entry">
@@ -1397,7 +1146,6 @@
           <span class="skill-pill">Oracle</span>
           <span class="skill-pill">Joins</span>
           <span class="skill-pill">Indexing</span>
-          <span class="skill-pill">Stored Procs</span>
         </div>
       </div>
     </div>
@@ -1497,7 +1245,7 @@
       <span class="project-tag">Android</span>
     </div>
     <h3 class="project-title">KoinCentric — Android Expense Tracker</h3>
-    <p class="project-desc">A lightweight, modern Android expense tracker built with Kotlin and Jetpack Compose, with quick-entry logging and categorized spending tracking.</p>
+    <p class="project-desc">A lightweight Android expense tracker built with Kotlin and Jetpack Compose, with quick-entry logging and categorized spending tracking.</p>
     <div class="project-links">
     </div>
   </div>
@@ -1538,7 +1286,7 @@
           <span class="project-tag">Nutrition Tracker</span>
         </div>
         <h3 class="project-title">NutriGlance — Your Personal AI Dietitian</h3>
-        <p class="project-desc">An AI nutrition tracker — snap a photo to log macros and calories, with a live dashboard, hydration tracker, streak counter, and an AI Chef for recipe ideas.</p>
+        <p class="project-desc">An AI nutrition tracker — snap a photo to log macros and calories, with a dashboard, hydration tracker, streak counter, and an AI Chef for recipe ideas.</p>
         <div class="project-links">
         </div>
       </div>
@@ -1578,7 +1326,7 @@
           <span class="project-tag">BRANDING</span>
         </div>
         <h3 class="project-title">Visual Brand Identity, Graphics & Thumbnail</h3>
-        <p class="project-desc">Bold, high-contrast thumbnails with punchy typography and color grading, built to grab attention and drive clicks.</p>
+        <p class="project-desc">A set of bold, high-contrast thumbnails designed with punchy typography and color grading to grab attention.</p>
         <div class="project-links">
         </div>
       </div>
@@ -1592,7 +1340,7 @@
   <div class="contact-box fade-in">
     <div class="section-label">04 / Contact</div>
     <h2 class="section-title">Let's Build<br>Something.</h2>
-    <p>Have a project in mind, an opportunity to share, or just want to connect? I'm always open to a conversation — drop a message and I'll get back to you promptly.</p>
+    <p>Have an opportunity or project in mind, or just want to connect? I'm always up for a conversation — drop a message and I'll get back to you.</p>
     <div class="contact-box-actions">
       <a href="mailto:visheshsingh29537@gmail.com" class="btn-primary">Email Me</a>
       <a href="https://www.linkedin.com/in/vishesh-singh-51081b385/" target="_blank" rel="noopener" class="btn-secondary">Connect on LinkedIn</a>
@@ -1736,7 +1484,7 @@
 
       function openLink(e) {
         // Don't navigate if user clicked a carousel button, dot, or link inside the card
-        if (e.target.closest('.carousel-btn, .carousel-dot, .project-link, a, button')) return;
+        if (e.target.closest('.carousel-btn, .carousel-dot, a, button')) return;
         window.open(href, '_blank', 'noopener,noreferrer');
       }
 
