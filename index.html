@@ -762,7 +762,7 @@
   .skill-card {
     background: var(--bg2);
     border: 1px solid var(--border);
-    padding: 1.75rem 2rem;
+    padding: 1.75rem 2rem 3rem;
     position: relative;
     overflow: hidden;
     transition: border-color 0.25s, transform 0.25s;
@@ -777,6 +777,18 @@
   .skill-header {
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 1.25rem;
+  }
+  .skill-logos {
+    position: absolute;
+    bottom: 1.1rem; right: 1.25rem;
+    display: flex; align-items: center; gap: 0.45rem;
+    z-index: 1;
+  }
+  .skill-logo {
+    width: 22px; height: 22px;
+    object-fit: contain;
+    filter: grayscale(0.15);
+    opacity: 0.9;
   }
   .skill-name {
     font-family: var(--sans);
@@ -1935,38 +1947,6 @@
 
     <div class="skill-card">
       <div class="skill-header">
-        <span class="skill-name">HTML, CSS &amp; JS</span>
-        <span class="skill-pct">95%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" data-width="95"></div>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag">Flexbox</span>
-        <span class="skill-tag">Grid</span>
-        <span class="skill-tag">Animations</span>
-        <span class="skill-tag">Responsive</span>
-      </div>
-    </div>
-
-    <div class="skill-card">
-      <div class="skill-header">
-        <span class="skill-name">SQL</span>
-        <span class="skill-pct">85%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" data-width="90"></div>
-      </div>
-      <div class="skill-tags">
-        <span class="skill-tag">Oracle</span>
-        <span class="skill-tag">Joins</span>
-        <span class="skill-tag">Indexing</span>
-        <span class="skill-tag">Stored Procs</span>
-      </div>
-    </div>
-
-    <div class="skill-card">
-      <div class="skill-header">
         <span class="skill-name">Java</span>
         <span class="skill-pct">95%</span>
       </div>
@@ -1979,23 +1959,10 @@
         <span class="skill-tag">Spring</span>
         <span class="skill-tag">Maven</span>
       </div>
+      <span class="skill-logos">
+        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" loading="lazy">
+      </span>
     </div>
-
-    <div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-name">Graphic Design</span>
-    <span class="skill-pct">90%</span>
-  </div>
-  <div class="progress-track">
-    <div class="progress-fill" data-width="90"></div>
-  </div>
-  <div class="skill-tags">
-    <span class="skill-tag">Figma</span>
-    <span class="skill-tag">Canva</span>
-    <span class="skill-tag">Branding</span>
-    <span class="skill-tag">Typography</span>
-  </div>
-</div>
 
     <div class="skill-card">
       <div class="skill-header">
@@ -2011,6 +1978,9 @@
         <span class="skill-tag">Flask</span>
         <span class="skill-tag">Automation</span>
       </div>
+      <span class="skill-logos">
+        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy">
+      </span>
     </div>
 
     <div class="skill-card">
@@ -2027,22 +1997,85 @@
         <span class="skill-tag">REST APIs</span>
         <span class="skill-tag">Sessions</span>
       </div>
+      <span class="skill-logos">
+        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" loading="lazy">
+      </span>
     </div>
 
     <div class="skill-card">
       <div class="skill-header">
-        <span class="skill-name">WordPress</span>
-        <span class="skill-pct">80%</span>
+        <span class="skill-name">JavaScript</span>
+        <span class="skill-pct">90%</span>
       </div>
       <div class="progress-track">
-        <div class="progress-fill" data-width="80"></div>
+        <div class="progress-fill" data-width="90"></div>
       </div>
       <div class="skill-tags">
-        <span class="skill-tag">Themes</span>
-        <span class="skill-tag">Plugins</span>
-        <span class="skill-tag">Elementor</span>
-        <span class="skill-tag">Custom Fields</span>
+        <span class="skill-tag">ES6+</span>
+        <span class="skill-tag">DOM</span>
+        <span class="skill-tag">Async/Await</span>
+        <span class="skill-tag">Fetch API</span>
       </div>
+      <span class="skill-logos">
+        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy">
+      </span>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">SQL</span>
+        <span class="skill-pct">85%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" data-width="90"></div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Oracle</span>
+        <span class="skill-tag">Joins</span>
+        <span class="skill-tag">Indexing</span>
+        <span class="skill-tag">Stored Procs</span>
+      </div>
+      <span class="skill-logos">
+        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle SQL" loading="lazy">
+      </span>
+    </div>
+
+    <div class="skill-card">
+  <div class="skill-header">
+    <span class="skill-name">UI/UX Design</span>
+    <span class="skill-pct">90%</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" data-width="90"></div>
+  </div>
+  <div class="skill-tags">
+    <span class="skill-tag">Figma</span>
+    <span class="skill-tag">Canva</span>
+    <span class="skill-tag">Branding</span>
+    <span class="skill-tag">Typography</span>
+  </div>
+  <span class="skill-logos">
+    <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" loading="lazy">
+  </span>
+</div>
+
+    <div class="skill-card">
+      <div class="skill-header">
+        <span class="skill-name">HTML &amp; CSS</span>
+        <span class="skill-pct">95%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" data-width="95"></div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Flexbox</span>
+        <span class="skill-tag">Grid</span>
+        <span class="skill-tag">Animations</span>
+        <span class="skill-tag">Responsive</span>
+      </div>
+      <span class="skill-logos">
+        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" loading="lazy">
+      </span>
     </div>
 
     <div class="skill-card">
@@ -2059,6 +2092,9 @@
         <span class="skill-tag">Signals</span>
         <span class="skill-tag">Physics</span>
       </div>
+      <span class="skill-logos">
+        <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg" alt="Godot" loading="lazy">
+      </span>
     </div>
 
     
@@ -2194,7 +2230,7 @@
       <span class="project-tag">PDF Export</span>
     </div>
     <h3 class="project-title">Resumify — Resume Builder with 20+ Presets</h3>
-    <p class="project-desc">A fast, no-friction resume builder offering 20+ professionally designed presets — from minimal to creative layouts. Built with a live preview editor, section drag-and-drop, and one-click PDF export. Every template is ATS-friendly and fully customizable to help users land interviews, not just look good on screen.</p>
+    <p class="project-desc">A no-friction resume builder with 20+ ATS-friendly presets, a live preview editor, drag-and-drop sections, and one-click PDF export.</p>
     <div class="project-links">
     </div>
   </div>
@@ -2235,7 +2271,7 @@
           <span class="project-tag">Nutrition Tracker</span>
         </div>
         <h3 class="project-title">NutriGlance — Your Personal AI Dietitian</h3>
-        <p class="project-desc">A smart, AI-powered nutrition tracking app that lets you log meals by simply uploading a photo — the AI instantly analyses macros and calories. Features a real-time dashboard, calorie history charts, hydration tracker, streak counter, and an AI Chef for personalised recipe ideas. Designed with a clean dark UI and seamless UX from end to end.</p>
+        <p class="project-desc">An AI nutrition tracker — snap a photo to log macros and calories, with a live dashboard, hydration tracker, streak counter, and an AI Chef for recipe ideas.</p>
         <div class="project-links">
         </div>
       </div>
@@ -2275,7 +2311,7 @@
           <span class="project-tag">BRANDING</span>
         </div>
         <h3 class="project-title">Visual Brand Identity, Graphics & Thumbnail</h3>
-        <p class="project-desc">Eye-catching, high-contrast thumbnails engineered to maximize click-through rates and viewer engagement. Featuring bold, readable typography, aggressive color grading, and dynamic framing designed to stand out in a crowded feed and instantly hook an audience.</p>
+        <p class="project-desc">Bold, high-contrast thumbnails with punchy typography and color grading, built to grab attention and drive clicks.</p>
         <div class="project-links">
         </div>
       </div>
@@ -2862,7 +2898,7 @@
 
   const FAQ = [
     { q: "Who is Vishesh?", a: "I'm Vishesh Singh — a Full-Stack Developer, UI/UX Enthusiast, Database Architect, and Game Developer based in Surat, Gujarat, India. I love building polished, performant web experiences from end to end." },
-    { q: "What are your skills?", a: "My core stack includes JavaScript, TypeScript, React, Node.js, Python, and PHP. I'm also experienced in SQL & NoSQL databases, WordPress, UI/UX design, and game development. I enjoy working across the full stack!" },
+    { q: "What are your skills?", a: "My core stack includes JavaScript, TypeScript, React, Node.js, Python, and PHP. I'm also experienced in SQL & NoSQL databases, UI/UX design, and game development. I enjoy working across the full stack!" },
     { q: "Are you available for work?", a: "Yes! I'm open to full-time roles, freelance projects, and collaborations. If you have something interesting in mind, I'd love to hear about it — drop me a message!" },
     { q: "What kind of projects do you build?", a: "I build web apps, developer tools, interactive UIs, database-driven systems, and games. I care a lot about clean code, great design, and smooth user experiences." },
     { q: "How can I contact you?", a: "You can reach me at visheshsingh29537@gmail.com — I typically reply within a day. You can also find me on GitHub and LinkedIn linked in the footer!" },
