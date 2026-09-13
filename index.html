@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vishesh Singh — IT Student, Developer & Designer Portfolio</title>
+<title>Vishesh Singh: IT Student, Developer & Designer Portfolio</title>
 <meta name="google-site-verification" content="LoqvPvLi23khtu8zaWT42EBOnnnAT9v60HbxTSSJPsk" />
 <meta name="description" content="Portfolio of Vishesh Singh, an Information Technology student based in Surat, India, learning to build clean interfaces and web apps with React, Node.js, and modern tooling.">
 <meta name="keywords" content="Vishesh Singh, IT student, aspiring developer, UI/UX designer, web developer Surat, React developer, student portfolio, front-end developer, graphic designer">
@@ -14,7 +14,7 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://visheshsingh.vercel.app/">
-<meta property="og:title" content="Vishesh Singh — IT Student, Developer & Designer">
+<meta property="og:title" content="Vishesh Singh: IT Student, Developer & Designer">
 <meta property="og:description" content="Building clean interfaces and web apps as an IT student. Explore my projects, skills, and background.">
 <meta property="og:image" content="https://visheshsingh.vercel.app/d1.jpeg">
 <meta property="og:locale" content="en_US">
@@ -22,12 +22,12 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://visheshsingh.vercel.app/">
-<meta name="twitter:title" content="Vishesh Singh — IT Student, Developer & Designer">
+<meta name="twitter:title" content="Vishesh Singh: IT Student, Developer & Designer">
 <meta name="twitter:description" content="Building clean interfaces and web apps as an IT student. Explore my projects, skills, and background.">
 <meta name="twitter:image" content="https://visheshsingh.vercel.app/d1.jpeg">
 <meta name="twitter:creator" content="@visheshsingh">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23252422'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='%23eb5e28'>VS</text></svg>">
+<link rel="icon" type="image/png" href="assets/portlogo.png">
 
 <script type="application/ld+json">
 {
@@ -100,6 +100,35 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
+  /* Back-to-top floating button */
+  .back-to-top {
+    position: fixed;
+    right: 2rem; bottom: 2rem;
+    width: 42px; height: 42px;
+    background: rgba(37,36,34,0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    cursor: none;
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s, border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+  .back-to-top:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(235,94,40,0.08);
+  }
+  .back-to-top svg { width: 16px; height: 16px; }
+  @media (hover: none), (pointer: coarse) { .back-to-top { cursor: pointer; } }
+  @media (max-width: 700px) {
+    .back-to-top { right: 1.25rem; bottom: 1.25rem; width: 38px; height: 38px; }
+  }
+
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -123,6 +152,7 @@
     text-decoration: none;
   }
   .nav-logo span { color: var(--accent2); }
+  .nav-logo img { height: 32px; width: auto; display: block; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
     font-family: var(--mono);
@@ -640,7 +670,7 @@
     color: rgba(255,252,242,0.55);
   }
 
-  /* slide backgrounds — alternating per card */
+  /* slide backgrounds, alternating per card */
   .project-card:nth-child(odd)  .carousel-slide:nth-child(1) { background: linear-gradient(135deg, #2e2b28, #1e1c1a); }
   .project-card:nth-child(odd)  .carousel-slide:nth-child(2) { background: linear-gradient(135deg, #3a2218, #251510); }
   .project-card:nth-child(odd)  .carousel-slide:nth-child(3) { background: linear-gradient(135deg, #1e2228, #12181e); }
@@ -768,7 +798,71 @@
     padding: 0 4rem;
   }
 
-  .footer-simple {
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 3rem;
+    padding: 4rem 0 2.75rem;
+  }
+
+  .footer-brand { max-width: 300px; }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .footer-logo img { height: 26px; width: auto; display: block; }
+  .footer-tagline {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 1rem 0 1.35rem;
+  }
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .footer-status-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(235,94,40,0.18);
+    flex-shrink: 0;
+  }
+
+  .footer-col { display: flex; flex-direction: column; gap: 0.85rem; }
+  .footer-col-title {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .footer-col a {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    width: fit-content;
+  }
+  .footer-col a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -777,26 +871,25 @@
     padding: 1.5rem 0;
   }
 
-  .footer-logo {
-    font-family: var(--mono);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-  .footer-logo span { color: var(--accent2); }
-
   .footer-copy {
     font-family: var(--mono);
     font-size: 0.65rem;
     color: var(--muted);
     letter-spacing: 0.07em;
     margin: 0;
-    text-align: center;
   }
   .footer-copy .accent { color: var(--accent); }
+
+  .footer-top-link {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-top-link:hover { color: var(--accent); }
 
   /* social icons row */
   .footer-socials {
@@ -828,10 +921,16 @@
     stroke-width: 1.8;
   }
 
+  @media (max-width: 900px) {
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem 2rem; }
+    .footer-brand { grid-column: 1 / -1; max-width: none; }
+  }
   @media (max-width: 700px) {
     .footer-inner { padding: 0 1.5rem; }
-    .footer-simple { flex-direction: column; text-align: center; }
+    .footer-top { grid-template-columns: 1fr; text-align: left; padding: 3rem 0 2rem; }
+    .footer-bottom { flex-direction: column; text-align: center; }
   }
+
 
   /* ===== EDU / CERT TOGGLE ===== */
   .edu-cert-toggle {
@@ -921,14 +1020,14 @@
     section { padding: 5rem 2rem; }
     #hero { padding: 6rem 2rem 4rem; }
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .footer-simple { padding: 2.75rem 1rem; gap: 1.5rem; }
+    .footer-top { padding: 2.75rem 0 2rem; }
   }
   @media (max-width: 600px) {
     .hero-name { font-size: clamp(2.8rem, 12vw, 4rem); }
     .projects-grid { grid-template-columns: 1fr; }
   }
 
-  /* Hide custom cursor on touch/mobile — pointer is a finger, not a mouse */
+  /* Hide custom cursor on touch/mobile: pointer is a finger, not a mouse */
   @media (hover: none), (pointer: coarse) {
     .cursor { display: none !important; }
     *, *::before, *::after { cursor: auto !important; }
@@ -940,11 +1039,18 @@
 
 <div class="cursor" id="cursor"></div>
 
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5"/>
+    <path d="M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
 
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-  <a class="nav-logo" href="#hero">VS<span>.</span></a>
+  <a class="nav-logo" href="#hero"><img src="assets/portlogoclear.png" alt="Vishesh Singh logo"></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -1014,7 +1120,7 @@
 <section id="about">
   <div class="about-grid fade-in">
     <div class="about-text">
-      <div class="section-label">01 / About Me</div>
+      <div class="section-label">About Me</div>
    <h2 class="section-title">Design-Minded.<br>Code-Driven.</h2>
       <p>Hi! I'm <strong>Vishesh Singh</strong>, an IT student who enjoys building intuitive interfaces through <strong>UI/UX, graphic design, and clean code</strong>. I believe good digital experiences should always be <span class="highlight">visually appealing and fun to use</span>.</p>
 <p>I combine a growing eye for visuals with web and game design skills to bring ideas to life. My projects so far span pixel-perfect interfaces, graphic layouts, and small indie games.</p>
@@ -1037,7 +1143,7 @@
 
           <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
             <div style="width: 10px; height: 10px; background: var(--accent); position: absolute; left: 0; top: 6px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(235,94,40,0.2); z-index: 1;"></div>
-            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">2025 — Present</span>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">2025 - Present</span>
             <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">BSc in Information Technology</h3>
             <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">Sarvajanik University, Surat</span>
             <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Currently deep diving into application development, web infrastructures, and data systems administration.</p>
@@ -1045,16 +1151,16 @@
 
           <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
             <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
-            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class XII — 2025</span>
-            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">PCM Stream — 70%</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class XII - 2025</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">PCM Stream - 70%</h3>
             <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">GSEB Board</span>
             <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Built analytical foundations in Physics, Chemistry, and Mathematics, optimizing core logical reasoning skills.</p>
           </div>
 
           <div style="padding-left: 2.2rem; position: relative;">
             <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
-            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class X — 2023</span>
-            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Secondary Education — 86%</h3>
+            <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">Class X - 2023</span>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Secondary Education - 86%</h3>
             <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">GSEB Board</span>
             <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Graduated with top distinctions, establishing strong performance habits early on.</p>
           </div>
@@ -1075,7 +1181,7 @@
           <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
             <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
             <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">2026 August</span>
-            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Java (Basic) — Certificate of Accomplishment</h3>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Java (Basic): Certificate of Accomplishment</h3>
             <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">HackerRank</span>
             <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Passed HackerRank's Java (Basic) skill certification test, covering core Java syntax and programming fundamentals.</p>
           </div>
@@ -1083,7 +1189,7 @@
           <div style="padding-left: 2.2rem; position: relative; padding-bottom: 2.5rem;">
             <div style="width: 10px; height: 10px; background: var(--bg3); border: 2px solid var(--border); position: absolute; left: 0; top: 6px; border-radius: 50%; z-index: 1;"></div>
             <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">2026 August</span>
-            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Python — Certificate of Completion</h3>
+            <h3 style="font-family: var(--sans); font-weight: 700; font-size: 1.15rem; color: var(--white); margin: 0.3rem 0;">Python: Certificate of Completion</h3>
             <span style="font-family: var(--mono); font-size: 0.75rem; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;">Kaggle</span>
             <p style="font-size: 0.88rem; line-height: 1.6; color: var(--muted); margin: 0;">Completed Kaggle's Python course, covering core syntax, data structures, and programming fundamentals.</p>
           </div>
@@ -1104,7 +1210,7 @@
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-label fade-in">02 / Skills</div>
+  <div class="section-label fade-in">Skills</div>
   <h2 class="section-title fade-in">Tools and concepts<br>I work with.</h2>
   <div class="skill-groups fade-in">
 
@@ -1219,11 +1325,11 @@
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-label fade-in">03 / Projects</div>
+  <div class="section-label fade-in">Projects</div>
   <h2 class="section-title fade-in">Selected<br>Work</h2>
   <div class="projects-grid fade-in">
 
-    <div class="project-card" data-href="https://github.com/visheshsingh123/koincentric" role="link" tabindex="0" aria-label="KoinCentric — Android Expense Tracker">
+    <div class="project-card" data-href="https://github.com/visheshsingh123/koincentric" role="link" tabindex="0" aria-label="KoinCentric: Android Expense Tracker">
   <div class="project-thumb">
     <div class="carousel" data-index="0">
       <div class="carousel-track">
@@ -1252,14 +1358,14 @@
       <span class="project-tag">Jetpack Compose</span>
       <span class="project-tag">Android</span>
     </div>
-    <h3 class="project-title">KoinCentric — Android Expense Tracker</h3>
+    <h3 class="project-title">KoinCentric: Android Expense Tracker</h3>
     <p class="project-desc">A lightweight Android expense tracker built with Kotlin and Jetpack Compose, with quick-entry logging and categorized spending tracking.</p>
     <div class="project-links">
     </div>
   </div>
 </div>
 
-<div class="project-card" data-href="https://nutriglance.vercel.app" role="link" tabindex="0" aria-label="NutriGlance — AI-Powered Personal Dietitian">
+<div class="project-card" data-href="https://nutriglance.vercel.app" role="link" tabindex="0" aria-label="NutriGlance: AI-Powered Personal Dietitian">
       <div class="project-thumb">
         <div class="carousel" data-index="0">
           <div class="carousel-track">
@@ -1293,8 +1399,8 @@
           <span class="project-tag">AI / Claude API</span>
           <span class="project-tag">Nutrition Tracker</span>
         </div>
-        <h3 class="project-title">NutriGlance — Your Personal AI Dietitian</h3>
-        <p class="project-desc">An AI nutrition tracker — snap a photo to log macros and calories, with a dashboard, hydration tracker, streak counter, and an AI Chef for recipe ideas.</p>
+        <h3 class="project-title">NutriGlance: Your Personal AI Dietitian</h3>
+        <p class="project-desc">An AI nutrition tracker: snap a photo to log macros and calories, with a dashboard, hydration tracker, streak counter, and an AI Chef for recipe ideas.</p>
         <div class="project-links">
         </div>
       </div>
@@ -1302,7 +1408,7 @@
   
 
 
-    <div class="project-card" data-href="https://relaychatting.vercel.app" role="link" tabindex="0" aria-label="Relay Chat — AI-Powered Real-Time Messaging App">
+    <div class="project-card" data-href="https://relaychatting.vercel.app" role="link" tabindex="0" aria-label="Relay Chat: AI-Powered Real-Time Messaging App">
       <div class="project-thumb">
         <div class="carousel" data-index="0">
           <div class="carousel-track">
@@ -1336,7 +1442,7 @@
           <span class="project-tag">AI / Summarization</span>
           <span class="project-tag">PWA</span>
         </div>
-        <h3 class="project-title">Relay Chat — AI-Powered Messaging App</h3>
+        <h3 class="project-title">Relay Chat: AI-Powered Messaging App</h3>
         <p class="project-desc">A real-time chat app with secure login, unique usernames, and live messaging between users, plus an AI assistant that summarizes conversations on the fly. Installable as a PWA for a native app-like experience.</p>
         <div class="project-links">
         </div>
@@ -1349,9 +1455,9 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-box fade-in">
-    <div class="section-label">04 / Contact</div>
+    <div class="section-label">Contact</div>
     <h2 class="section-title">Let's Build<br>Something.</h2>
-    <p>Have an opportunity or project in mind, or just want to connect? I'm always up for a conversation — drop a message and I'll get back to you.</p>
+    <p>Have an opportunity or project in mind, or just want to connect? I'm always up for a conversation. Drop a message and I'll get back to you.</p>
     <div class="contact-box-actions">
       <a href="mailto:visheshsingh29537@gmail.com" class="btn-primary">Email Me</a>
       <a href="https://www.linkedin.com/in/vishesh-singh-51081b385/" target="_blank" rel="noopener" class="btn-secondary">Connect on LinkedIn</a>
@@ -1362,22 +1468,54 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner footer-simple">
-    <a class="footer-logo" href="#hero">VS<span>.</span></a>
-    <p class="footer-copy">© 2026 <span class="accent">Vishesh Singh</span>. All rights reserved.</p>
-    <div class="footer-socials">
-      <!-- GitHub -->
-      <a class="footer-social-link" href="https://github.com/visheshsingh123" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      </a>
-      <!-- LinkedIn -->
-      <a class="footer-social-link" href="https://www.linkedin.com/in/vishesh-singh-51081b385/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <!-- Email -->
-      <a class="footer-social-link" href="mailto:visheshsingh29537@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="footer-logo" href="#hero">
+          <img src="assets/portlogoclear.png" alt="Vishesh Singh logo">
+          Vishesh Singh
+        </a>
+        <p class="footer-tagline">Building clean interfaces &amp; solid apps, one project at a time.</p>
+        <div class="footer-status">
+          <span class="footer-status-dot"></span>
+          Open to opportunities · Surat, India
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-col-title">Navigate</span>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-col-title">Get in touch</span>
+        <a href="mailto:visheshsingh29537@gmail.com">visheshsingh29537@gmail.com</a>
+        <a href="https://www.linkedin.com/in/vishesh-singh-51081b385/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/visheshsingh123" target="_blank" rel="noopener">GitHub</a>
+        <a href="VisheshSinghResume.pdf" download="VisheshSinghResume.pdf">Resume (PDF)</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <span class="accent">Vishesh Singh</span>. All rights reserved.</p>
+      <div class="footer-socials">
+        <!-- GitHub -->
+        <a class="footer-social-link" href="https://github.com/visheshsingh123" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+        <!-- LinkedIn -->
+        <a class="footer-social-link" href="https://www.linkedin.com/in/vishesh-singh-51081b385/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <!-- Email -->
+        <a class="footer-social-link" href="mailto:visheshsingh29537@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+      <a href="#hero" class="footer-top-link">Back to top</a>
     </div>
   </div>
 </footer>
@@ -1424,6 +1562,21 @@
     });
   });
   // =====================
+
+  // ===== BACK TO TOP =====
+  (function () {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    function toggle() {
+      btn.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+    }
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+  // ========================
 
 
   const cursor = document.getElementById('cursor');
